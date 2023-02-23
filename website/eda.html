@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Jieqian Liu, jl2750@georgetown.edu" name="author">
+
+    <!-- Title -->
+    <title>fall 2022 reddit big data project nlp - project group 14</title>
+
+    <style>
+
+        /* Main Menu CSS */
+        .main-menu-area {
+            background: #f2f8ec;
+        }
+
+        .main-navigation ul li {
+            display: inline-block;
+            position: relative;
+
+        }
+
+        .main-navigation ul li a {
+            padding: 20px 20px;
+            display: block;
+            text-transform: capitalize;
+            color: #113417;
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .main-navigation ul li a:before {
+            position: absolute;
+            content: '';
+            height: 36px;
+            width: 100%;
+            background-color: #81b60c;
+            left: 0;
+            border-radius: 50px;
+            z-index: -1;
+            top: 50%;
+            margin-top: -17px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .main-navigation ul ul li a:before {
+            display: none;
+        }
+
+        .main-navigation ul ul li a,
+        .main-navigation ul li a:hover,
+        .main-navigation ul li.current-menu-item > a,
+        .main-navigation ul li.current-menu-ancestor > a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .main-navigation ul ul li a:hover,
+        .main-navigation ul ul li.current-menu-item > a,
+        .main-navigation ul ul li.current-menu-ancestor > a {
+            background-color: #123416;
+        }
+
+        .main-navigation ul li a:hover:before,
+        .main-navigation ul li.current-menu-item > a:before,
+        .main-navigation ul li.current-menu-ancestor > a:before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Menu CSS End*/
+
+        /* Submenu / Dropdown Menu CSS */
+        .main-navigation ul li ul {
+            position: absolute;
+            width: 250px;
+            left: 0;
+            top: 58px;
+            z-index: 2;
+            -webkit-transition: .3s;
+            transition: .3s;
+            visibility: hidden;
+            opacity: 0;
+            background-color: #81b60c;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .main-navigation ul li:hover > ul {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-navigation ul li ul li a {
+            padding: 14px 20px;
+            line-height: 26px;
+        }
+
+        .main-navigation ul li ul li {
+            display: block;
+            text-align: left;
+        }
+
+        .main-navigation ul li ul ul {
+            left: 250px;
+            top: 0;
+        }
+
+        .main-navigation ul li ul li {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .main-navigation ul li ul li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Submenu / Dropdown Menu CSS End */
+
+        /* Tab Layout Two */
+        .cvt-tabs-wrapper.cvt-tab-layout-two {
+            background-color: #f4f5ef;
+            padding: 10px;
+        }
+
+        .cvt-tab-layout-two .nav li a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ebebe7;
+            margin-right: 10px;
+            color: #123417;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 15px 23px;
+            margin-bottom: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .cvt-tab-layout-two .nav li a.active,
+        .cvt-tab-layout-two .nav li:hover a {
+            background-color: #123417;
+            color: #ffffff;
+        }
+
+        .cvt-tab-layout-two .tab-content {
+            padding: 25px 30px 45px 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-content-wrapper strong {
+            margin-top: 15px;
+        }
+
+        /* Tab Layout Two End */
+
+        /* Team details */
+        .team-member-details-wrapper .cvt-tab-layout-two .tab-content {
+            padding: 0;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a {
+            padding: 5px 40px;
+            font-size: 25px;
+            background-color: #ffffff;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a.active,
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li:hover a {
+            background-color: #81b60c;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            margin-bottom: 10px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle {
+            color: #81b60c;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle a {
+            color: #81b60c;
+        }
+
+        .pict {
+            margin-top: 5px;
+            margin-left: 350px;
+            font-size: 12px;
+            color: dimgray;
+        }
+
+        .mdiv {
+            width: 900px;
+            height: 300px;
+            background-color: #ffffff;
+            overflow: scroll;
+            margin-left: 80px;
+            scrollbar-face-color: #70807d;
+            scrollbar-arrow-color: #ffffff;
+            scrollbar-highlight-color: #ffffff;
+            scrollbar-3dlight-color: #70807d;
+            scrollbar-shadow-color: #ffffff;
+            scrollbar-darkshadow-color: #70807d;
+            scrollbar-track-color: #ffffff;
+        }
+        /* Team details End */
+
+    </style>
+
+    <!-- Template Stylesheet -->
+    <link href="../website-source/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Header Area -->
+<div class="main-menu-area">
+    <nav class="main-navigation">
+        <ul class="menu" id="main-menu">
+            <li><a href="index.html">Home</a></li>
+            <li class="current-menu-ancestor"><a href="eda.html">Exploratory Data Analysis</a></li>
+            <li><a href="nlp.html">Natural Language Processing</a></li>
+            <li><a href="ml.html">Machine Learning</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </nav>
+</div>
+<!-- Header Area End-->
+
+<!-- Team Member Details -->
+<section class="team-member-details-wrapper">
+    <div class="container" style="max-width: none">
+        <div class="cvt-tabs-wrapper cvt-tab-layout-two">
+            <div class="tab-content">
+                <div class="tab-pane active show">
+                    <div class="cvt-tab-content-wrapper">
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">Exploratory Data Analysis</h3>
+                            <p></p>
+
+                            <span class="cvt-tab-subtitle">Code</span>
+                            <p></p>
+                            <p>
+                                Our code can be seen here: <a href="../code/project_eda.html" target="_blank">project_eda.html</a>.
+                            </p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Executive summary</span>
+                            <p></p>
+                            <p>
+                                Through this part, we found that the distribution of average score of authors is uneven, and the number of submissions published by the author has no direct relationship with the average score obtained, so we will continue to explore the essential factors that affect the author submission score in the next part.
+                                A controversial submission is considered with a large number of comments and similar numbers of upvote and downvote. So if the number of comments of a post is more than 20 times score(upvotes-downvotes), we can think it is a controversial post and need to delve into in the future.
+                                By visualizing the comments number of six main LGBTQ+groups (gat, lesbian, bisexual, transgender, intersex, queer, asexual) we found that the gay is the hottest topic about LGBTQ+ issue. Teenagers' emotion towards family and academical topics is a common concern because at that age they always go against parent's and teacher's requirement with a rebellious heart.
+                                It is good to know positive emotions towards family counts more than negative, but negative emotions containing fear, sadness still cannot be ignored. The EDA results also show that teens are more interested in money topics than education topics that they show a high level of engagement in money-related topics. It is an interesting discovery that teenagers are enthusiastic to share their first kiss age on Reddit. So we extract teenagers' first kiss age from the comments below these submissions discussing first kiss age. It is interesting to find that most yong people got their first kiss at their fifteen and the average age of first kiss is thirteen.
+                            </p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Data Structure</span>
+                            <p></p>
+                            <p>
+                                In this part, we are going to explore the structure of our data and intend to initially explore the problems. The two datasets we are going to use contain metadata of submissions and comments from subreddits that contains the words <b>teenagers</b>. The submission dataset is a collection of the reddit posts including <b>3149122 rows and 10 variables</b> in total, while the comment dataset is a collection of the comments under different posts containing <b>43255805 rows and 10 variables</b>.
+                                Below are some important columns we would like to use later.
+                            </p>
+                            <ul>
+                                <li>
+                                    <p>
+                                        among which the <i>created_utc</i> indicates the time that the submission is created. It is a unix timestamp which is the number of seconds since the epoch which is converted to human-readable date for further analysis;
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The variable <i>score</i> is the amount of upvotes against the downvotes, it is an important metric that measures how many people agree on the authors;
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        For submission dataset, the variable <i>num_comments</i> is an important metric to determine how many Reddit traffic does the post obtained;
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The boolean type variable <i>stickied</i> indicates whether the post or comment is highlighted with a sticky by the moderators. The stickied posts or comments are always on top of the frontpage, independent of votes and time since posting. This variable might be a good indicator to determine the quality or the popularity of a post or a comment;
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        The <i>title</i> and <i>selftext</i> in the submission dataset are respectively the title and main post content, while the <i>body</i> in the comment dataset is the content of each comment. These variables are the essential part for further NLP and ML analysis.
+                                    </p>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        In comment table, <i>link_id</i> is the submission and <i>parent_id</i> is the parent of the comment. It could be another comment or the submission if the comment is a top level comment. Links start with t3_, comments start with t1_. If the parent_id starts with t3_, or if it matches the link_id, then you know it's a top level comment. These would be used to build a relationship network.
+                                    </p>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-tabs"></ul>
+
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Explore Data</span>
+                            <p></p>
+                            <div style="float: left; width: 25%; margin-left: 50px">
+                                 <img src="../data/plots/eda/author_avg_score_first10.png"  style="width: 80%">
+                            </div>
+                            <div style="float: left; width: 25%">
+                                 <img src="../data/plots/eda/avg_score_summary.png"  style="width: 65%">
+                            </div>
+                            <div style="width: 45%; float: left; padding: 30px 30px 0 0;">
+                                <p>We can see that the maximum value in the variable avg(score) is much higher than the average value. This could be an outlier or a small number of high-quality posts with extremely high scores. We can explore why later. But for now we can exclude these values first, after excluding the highest 1%, the overall distribution of avg(score).</p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <br>
+                            <div style="float: left; width: 40%; margin-left: 40px;">
+                                 <img src="../data/plots/eda/author_score.png"  style="width: 80%">
+                            </div>
+                            <div style="width: 50%; float: left;">
+                                <img src="../data/plots/eda/is_high_quality_author.png"  style="width: 100%">
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>
+                                Through the left violin plot, we can observe more clearly that most author get an avg_score between 0 and 500, thus maybe we can use avg_score = 500 as a threshold to filter author who write high quality post. But we also need to consider quantitatively, so we can create a new variable called general_score which equals to submissions_count * submissions_avg_score and a dummy variable called is_high_quality_author when general_score is 95% larger than other authors' general_score.
+                                We can clearly see that there is no direct relationship between the quantity and quality of submissions. So maybe we can include more variables to predict which are important features of high-quality content producers.
+                                So we create the right table high quality author first10 to summarize author's score information, which includes the variables submissions_avg_score, submissions_count, general_score and dummy variable is_high_quality_author, this table only shows the first ten rows.
+                            </p>
+
+                            <br>
+                            <div style="float: left; width: 45%; margin-left: 20px;">
+                                 <img src="../data/plots/eda/important_topic.png"  style="width: 92%">
+                            </div>
+                            <div style="width: 45%; float: left; margin-left: 20px;">
+                                <img src="../data/plots/eda/contro_posts.png"  style="width: 100%">
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>
+                                Left plot is to find the words that discussed most in teenagers community. From the left wordcloud, we can see that the most frequent word in teenager community is 'gay'. So we want to explore more about LGBTQ+ groups among teenagers.
+                                The right plot is to see the topics for controversial submissions where the number of comments of a post is more than 20 times score.
+                                since score of reddit submission is equals to the difference between upvotes and downvotes, so if the num_comments is great larger than score, the posts can be controversial and has the more meaning to research on the reason. It seems no people post a lot of controversial posts as the largest count of controversial submissions for each person is lower than 10. But there are more than 1000 people who had posted submissions that have a large number of comments and score is much different about comments. That means people's opinion on those kinds of topics varies a lot. Inside the text of these submissions, it seems hard to distinguish a specific topic according to just one word. Maybe we need further modeling to find the actual topics that makes teenagers argue a lot.
+                            </p>
+
+                            <div style="width: 59%; float: left">
+                                <br>
+                                <iframe height="400px" name="LGBTQ"
+                                    src="../data/plots/eda/lgbtq.html"
+                                    width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="padding: 100px 0 0 30px; float: left; width: 40%">
+                                 <p>
+                                     The word 'gay' is the most frequent word in teenager community which means there are a large amount of posts discussing the issues related to LGBTQ+.
+                                     From the plot we can see that there is no obvious difference among the median of number of comments for each LGBTQ+ group. The submission related to LGBTQ+ gaining most comments is of lesbian topic which got 4735 comments. However, since the number of Gay topic is far more than Lesbian topic, the hottest topic about LGBTQ+ issue is Gay.
+                                 </p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <br>
+                            <div style="padding: 80px 30px 0 10px; float: left; width: 35%">
+                                 <p>
+                                     Teenagers always have complicated emotions towards family at that time. So we use nltk package to identify multiple sentiments related to family topics inside teenagers' community.
+                                     According to all comment regarding family, it is good to see positive is the largest part of all, but negative also accounts a lot. It is sad to see the number of emotion fear or sadness towards family counts fifth and seventh in the total ten kinds of emotion. Totally, the positive sentiments like trust, anticipation counts much more than negative sentiments.</p>
+                            </div>
+                            <div style="width: 65%; float: left">
+                                <iframe height="420px" name="LGBTQ"
+                                    src="../data/plots/eda/emotion_family.html"
+                                    width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <br>
+                            <div style="width: 45%; float: left">
+                                 <img src="../data/plots/eda/edu_finance.png" style="width: 100%">
+                            </div>
+                            <div style="padding: 0 30px 0 10px; float: left; width: 54%">
+                                <p>This table summarizes comments made by people about financial or academic-related issues in the teen-related subreddits. As we can see, teens are discussing finance-related topics far more than academic topics, with nearly 95% of comments os money-related topic. At the same time, discussions about higher education and other academic topics accounted for 4% of the total.
+                                    The number of comments mentioning both education and finance was the lowest, at 1.45%. However, it is worth noting that the average score for this type of comments is 5.38, which is much higher than the other two types of comments, representing a generally high level of support for the content.</p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <br>
+                            <div style="padding: 100px 30px 0 10px; float: left; width: 45%">
+                                 <p>
+                                     This Pie chart shows the teenagers' sentiments attitudes in 10 dimensions. It can be observed that reddit submissions with positive sentiments like "positive", "trust", "anticipation", "joy", "surprise" take 58.95% of total posts. It can be inferred that teenagers' attitudes toward education-related discussions are split in half, but still more positive.
+                                 </p>
+                            </div>
+                            <div style="width: 50%; float: left">
+                                <iframe height="400px" name="LGBTQ"
+                                    src="../data/plots/eda/emotion_education.html"
+                                    width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <br>
+                            <div style="width: 45%; float: left">
+                                 <img src="../data/plots/eda/first_kiss_age.png" style="width: 100%">
+                            </div>
+                            <div style="padding: 100px 30px 0 10px; float: left; width: 54%">
+                                <p>The experience of first kiss is romantic and is unforgettable for many people. Teenagers are enthusiastic to share their first kiss age on Reddit. From the graph we can see that most young people experience a first kiss at the age of 13 to 18. An interesting finding is that the distribution of first kiss age shows a normal distribution, and its peak is at fifteen years old. We can also roughly estimate that the average age of first kiss is 13.5 years in America.</p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- Team Member Details End -->
+
+
+<!-- Template Scripts -->
+<script src="../website-source/jquery-3.5.1.min.js"></script>
+<script src="../website-source/bootstrap.min.js"></script>
+
+</body>
+</html>

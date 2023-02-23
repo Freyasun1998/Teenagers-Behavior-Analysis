@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Jieqian Liu, jl2750@georgetown.edu" name="author">
+
+    <!-- Title -->
+    <title>fall 2022 reddit big data project nlp - project group 14</title>
+
+    <style>
+
+        /* Main Menu CSS */
+        .main-menu-area {
+            background: #f2f8ec;
+        }
+
+        .main-navigation ul li {
+            display: inline-block;
+            position: relative;
+
+        }
+
+        .main-navigation ul li a {
+            padding: 20px 20px;
+            display: block;
+            text-transform: capitalize;
+            color: #113417;
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .main-navigation ul li a:before {
+            position: absolute;
+            content: '';
+            height: 36px;
+            width: 100%;
+            background-color: #81b60c;
+            left: 0;
+            border-radius: 50px;
+            z-index: -1;
+            top: 50%;
+            margin-top: -17px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .main-navigation ul ul li a:before {
+            display: none;
+        }
+
+        .main-navigation ul ul li a,
+        .main-navigation ul li a:hover,
+        .main-navigation ul li.current-menu-item > a,
+        .main-navigation ul li.current-menu-ancestor > a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .main-navigation ul ul li a:hover,
+        .main-navigation ul ul li.current-menu-item > a,
+        .main-navigation ul ul li.current-menu-ancestor > a {
+            background-color: #123416;
+        }
+
+        .main-navigation ul li a:hover:before,
+        .main-navigation ul li.current-menu-item > a:before,
+        .main-navigation ul li.current-menu-ancestor > a:before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Menu CSS End*/
+
+        /* Submenu / Dropdown Menu CSS */
+        .main-navigation ul li ul {
+            position: absolute;
+            width: 250px;
+            left: 0;
+            top: 58px;
+            z-index: 2;
+            -webkit-transition: .3s;
+            transition: .3s;
+            visibility: hidden;
+            opacity: 0;
+            background-color: #81b60c;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .main-navigation ul li:hover > ul {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-navigation ul li ul li a {
+            padding: 14px 20px;
+            line-height: 26px;
+        }
+
+        .main-navigation ul li ul li {
+            display: block;
+            text-align: left;
+        }
+
+        .main-navigation ul li ul ul {
+            left: 250px;
+            top: 0;
+        }
+
+        .main-navigation ul li ul li {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .main-navigation ul li ul li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Submenu / Dropdown Menu CSS End */
+
+        /* Tab Layout Two */
+        .cvt-tabs-wrapper.cvt-tab-layout-two {
+            background-color: #f4f5ef;
+            padding: 10px;
+        }
+
+        .cvt-tab-layout-two .nav li a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ebebe7;
+            margin-right: 10px;
+            color: #123417;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 15px 23px;
+            margin-bottom: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .cvt-tab-layout-two .nav li a.active,
+        .cvt-tab-layout-two .nav li:hover a {
+            background-color: #123417;
+            color: #ffffff;
+        }
+
+        .cvt-tab-layout-two .tab-content {
+            padding: 25px 30px 45px 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-content-wrapper strong {
+            margin-top: 15px;
+        }
+
+        /* Tab Layout Two End */
+
+        /* Team details */
+        .team-member-details-wrapper .cvt-tab-layout-two .tab-content {
+            padding: 0;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a {
+            padding: 5px 40px;
+            font-size: 25px;
+            background-color: #ffffff;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a.active,
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li:hover a {
+            background-color: #81b60c;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            margin-bottom: 10px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle {
+            color: #81b60c;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle a {
+            color: #81b60c;
+        }
+
+        .pict {
+            margin-top: 5px;
+            margin-left: 350px;
+            font-size: 12px;
+            color: dimgray;
+        }
+
+        .mdiv {
+            width: 900px;
+            height: 300px;
+            background-color: #ffffff;
+            overflow: scroll;
+            margin-left: 80px;
+            scrollbar-face-color: #70807d;
+            scrollbar-arrow-color: #ffffff;
+            scrollbar-highlight-color: #ffffff;
+            scrollbar-3dlight-color: #70807d;
+            scrollbar-shadow-color: #ffffff;
+            scrollbar-darkshadow-color: #70807d;
+            scrollbar-track-color: #ffffff;
+        }
+        /* Team details End */
+
+    </style>
+
+    <!-- Template Stylesheet -->
+    <link href="../website-source/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Header Area -->
+<div class="main-menu-area">
+    <nav class="main-navigation">
+        <ul class="menu" id="main-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="eda.html">Exploratory Data Analysis</a></li>
+            <li class="current-menu-ancestor"><a href="nlp.html">Natural Language Processing</a></li>
+            <li><a href="ml.html">Machine Learning</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </nav>
+</div>
+<!-- Header Area End-->
+
+<!-- Team Member Details -->
+<section class="team-member-details-wrapper">
+    <div class="container" style="max-width: none">
+        <div class="cvt-tabs-wrapper cvt-tab-layout-two">
+            <div class="tab-content">
+                <div class="tab-pane active show">
+                    <div class="cvt-tab-content-wrapper">
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">Natural Language Processing</h3>
+                            <p></p>
+
+                            <span class="cvt-tab-subtitle">Code and Data</span>
+                            <p></p>
+                            <p>
+                                All of our code is in the code/nlp folder, it contains three modules:
+                                <a href="../code/nlp/nlp_processing.html" target="_blank">nlp_processing.html</a>,
+                                <a href="../code/nlp/sentiment_model.html" target="_blank">sentiment_model.html</a> and
+                                <a href="../code/nlp/external_data_eda.html" target="_blank">external_data_eda.html</a>.
+                            </p>
+                            <p>
+                                ALso, in addition to Reddit data, we collected some external datasets as a supplement for our topic:
+                                one is <a href="https://eddataexpress.ed.gov/download?f%5B0%5D=school_year%3A2020-2021" target="_blank">assessments and graduation rates by state</a>
+                                and the other dataset is <a href="https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=2022031" target="_blank">student report of bullying</a>.
+                            </p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Executive summary</span>
+                            <p></p>
+                            <p>By conducting text analysis on the number of comments overtime, we found that teens were significantly more active on Reddit early in the morning and inactive in the afternoon. The price of ads on the subreddit during night can be set higher. From the distribution of text length, we found that teenagers tend to post shorter messages on the subreddit, which is in line with people's editing habits on mobile phones. For designing our research questions, we selected the most important words from top ten subreddits which can reflect some hottest topics and popular pet phrases among teenagers. Based on our conjecture and findings, we planned to explore more about 'LGBTQ', 'School', 'Family', 'Sports' in the future. Using NLP, we worked regarding life of teenagers in school and family at this time.</p>
+                            <p>We conducted a sentiment analysis of reddit posts on education topic, as well as data analysis of a dataset on school graduation rates, to obtain teen attitudes about college advancement, and student graduation in U.S. regions over the years 2012 to 2019. The results show that the youth group as a whole has a neutral to positive view of the topic. Also, the number of students going on to higher education is closely related to geographical location and local educational resources. In addition to furthering their education, teenagers' experience in campus takes up an important part of their daily life. Among them, there are numerous discussions about topics such as racism, sexism, bullying. Of all submissions of teenagers, some exists sexism trend or racism trend. This discrimination among teenagers sometimes can have very serious consequences, like bullying. Based on the second external dataset above, we found that teenagers from different demographic groups show different levels of rates of being bullied at school. Meanwhile, this rate has been decreasing year by year in recent years. Beside life in school, regarding family topics of teenagers, surprise and joy accounts the largest part in most cases. However, teenagers' sentiments of sadness and fear about family also cannot be ignored and need to be treated with caution.</p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Analysis of Teenagers' Usage Habits and Expressions on Reddit</span>
+                            <div style="padding: 100px 30px 0 10px; float: left; width: 45%">
+                                 <p>From the plot on right side, we can see that teens are more active in reddit during early in the morning, especially between 1am and 4am. However, from 7am to 4pm, teen's activity in reddit shows a dramatically decreasing. 7am to 4pm is the time when most teens spend time with their real life friends and on studies in school. Night is the time when a person is just him/her self, no bothers, no complications. That's why night increases the inflow of emotions. Reddit provides the place for teenagers where people can express feelings and emotions anytime and anywhere.</p>
+                            </div>
+                            <div style="width: 54%; float: left">
+                                <img src="../data/plots/nlp/Comment_activity_over_time.png"  style="width: 100%">
+                            </div>
+
+                            <div style="width: 45%; float: left">
+                                <br>
+                                <img src="../data/plots/nlp/Length_distribution_of_comments.png"  style="width: 100%">
+                            </div>
+                            <div style="padding: 100px 0 0 30px; float: left; width: 54%">
+                                 <p>We can see that most of the post lengths are in the range [0, 30]. The mean value is around 12.06. The count of comments decreases dramatically as the length increase from 1 to the mean value. Teenagers are used to sending short messages in reddit forums to express their opinion.</p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <p></p>
+
+                            <div style="padding: 100px 30px 0 10px; float: left; width: 45%">
+                                 <p>The plot shows top 20 common words in teenager community. The counts of top 3 words: 'im', 'dont', 'people' are far more than other common words. Since Reddit is the place for people to express their emotions, we can learn about teenagers' popular pet phrases from the graph: 'yeah', 'fuck', 'lol', 'dai'. We can also speculate about the hottest topics teenagers talking about on Reddit from some verbs and nons in the graph: 'love', 'time', 'feel', 'girl', 'friend', 'thing'. Based on our conjecture and findings, we designed some of our research questions: 'LGBTQ', 'first kiss', 'favorite things', 'family'...</p>
+                            </div>
+                            <div style="width: 54%; float: left">
+                                <img src="../data/plots/nlp/common_words.png"  style="width: 100%;">
+                            </div>
+
+                            <div style="width: 45%; float: left">
+                                <br>
+                                <img src="../data/plots/nlp/comment_topic_level.png"  style="width: 50%; margin-left: 20%">
+                            </div>
+                            <div style="padding: 100px 0 0 30px; float: left; width: 54%">
+                                 <p>According to the questions we have proposed, our research can be categorized into 4 topics: family, sports, lgbtq and school. So we defined the first dummy variable as topic. After we categorized the topic that commands belong to, we can only filter out the commands related to our interested topics. We can tell from the information in parent_id whether the command responds to the submission or other comments. If the parent_id starts with t1, the command responds to the submission, then we marked it as 'top level'. If the parent_id starts with t3, the command responds to other comments, then we marked it as 'second level'.</p>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <p></p>
+                            <br>
+                            <p>Through the above analysis, we found that teens were significantly more active in the middle of the night (1AM - 4AM) and inactive in the afternoon, indicating that most teens tend to stay up late. From the graph of comments length distribution, we found that teenagers tend to post shorter messages on the subreddit, which is in line with people's editing habits on mobile phones. In addition, we found that under the teenager reddit, the active subreddits showed obvious long-tail characteristics. The number of comments on the top ten subreddits accounts for more than 95% of the total forums, so when we focus on teenager topics, we can focus on the top ten popular subreddits, such as teenagersbutpog, teenagersbuthot and teenagersnew (top 3). Then focusing on these top ten subreddits, we used TF-IDF to choose the most important words which can reflect some hottest topics and popular pet phrases among teenagers. Based on our conjecture and findings, we designed some of our research questions: 'LGBTQ', 'School', 'Family', 'Sports'... So we created our first dummy variable according to these topics. The second dummy variable is used to distinguish whom the commentators responded to, initiators of a topic or other commentators.</p>
+                            <p></p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Teenagers and Education</span>
+                            <p></p>
+                            <p>In order to determine teenagers' attitudes in regard to education, and to understand the schooling of American youth, we conducted an analysis based on the Reddit submission data and data from the U.S. department of education about High schools’ graduation rate. From the result of the sentiment analysis on Reddit posts related to schooling topics, it was found that submissions with positive sentiments like "positive", "trust", "anticipation", "joy", and "surprise" take 59.4% of the total posts. It can be inferred that teenagers' attitudes toward education-related discussions are split in half, but still more positive.</p>
+                            <iframe height="400px" name="Teenagers'_Emotion_with_Education"
+                                    src="../data/plots/nlp/Teenagers'_Emotion_with_Education.html"
+                                    width="80%" style="border: none; margin-left: 10%"></iframe>
+                            <p>The external dataset “High schools’ graduation rate” provides additional information related to this topic:</p>
+                            <p>1. The parallel_categories provides an overview on the dataset, and the distribution of school graduate information on each category such as School Year. Due to the influence of the Covid Crisis, there is a greatly reduce in the sample number from School Year 2020- 2021 compared to the last Year.</p>
+                            <iframe height="400px" name="Overview_of_students_graduation_situation"
+                                    src="../data/plots/nlp/Overview_of_students_graduation_situation.html"
+                                    width="80%" style="border: none; margin-left: 10%"></iframe>
+                            <p>2. From the treemap which shows the regional accumulated values - each value represents graduation headcount per school(LEA) and complements the geographical information of users that Reddit data lacks, it can be observed that California and Texas are the two states with the highest accumulated number of students who graduated and Los Angeles is the city with the highest accumulated number of students who graduated in California. It is a resealable result, as the number of students and number of schools that graduated is associated with the local population and education resources.</p>
+                            <iframe height="400px" name="Number_of_graduated_students_by_regions"
+                                    src="../data/plots/nlp/Number_of_graduated_students_by_regions.html"
+                                    width="80%" style="border: none; margin-left: 10%"></iframe>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Discrimination among Teenagers</span>
+                            <iframe height="400px" name="discrimination"
+                                    src="../data/plots/nlp/discrimination.html"
+                                    width="80%" style="border: none; margin-left: 10%"></iframe>
+                            <p></p>
+                            <p>In all submissions regarding teenagers, we can see the discrimination trend inside according to the sentiment model we build. In addition to most neutral submissions, there sexism and racism still have a lot, especially for the sexism trend in teenagers. In graph above, it is clear that sexism is nearly ten times racism. However, it is surprising to see that sexism and racism have very similar trend over time. In the last year, we can find that these submissions are most posted in July 2021 and October 2021 when maybe we can try to see if there is any things happened at that time. Also, this discrimination among teenagers sometimes can have very serious consequences, like bullying, which we will discuss in the following part.</p>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Teenagers and Bullying Situation</span>
+                            <p></p>
+                            <p>Bullying is a common phenomenon, especially among adolescents. In recent years, issues related to bullying have also attracted social attention, and more and more anti-bullying programs are being launched. Here, we used second external dataset that contains statistical information (from Year 2005 to 2019) of teenagers (from age 12 to 18) who were bullied. This dataset also includes some demographic information of the students, such as race and gender, which can help us to further explore the topic of School bullying among teenagers in recent years：</p>
+                            <p>1. The line graph shows the percentage of students who are bullied at different school grades. In terms of grade level, the bullying rate is significantly higher in the lower grades than in the higher grades, suggesting that as young people grow older, they are able to understand the negative effects of school violence and reduce such kind of behaviors, or that the targets of bullying know how to protect themselves by reporting it. It can also be observed that the overall rate is decreasing as the timeline gets closer to the present, and it can be assumed that the popularization of education related to the prohibition of school violence in recent years might play a role.</p>
+                            <iframe height="400px" name="bullied_by_grades"
+                                    src="../data/plots/nlp/bullied_by_grades.html"
+                                    width="80%" style="border: none; margin-left: 10%"></iframe>
+                            <p>2. The stacked bar chart shows the cumulative rates of bullying for students of different races. Students with two or more races have higher values. Teens with multiple races may have more complex upbringing and family backgrounds, and may encounter more identity-related reoccurrence, which affects the probability of being exposed to school violence. Asian and Asian/Pacific Islander adolescents have significantly lower rates of bullying than whites and blacks, which may be related to racial culture, such as the conflict avoidance personality of East Asians, which may make them less likely to be involved in bullying incidents. From the result of the "Average Bullied Ratio by Races" table, native Americans also have a high be-bullied ratio. However, since it is a minor group, some data in certain years are not trackable. it doesn't show in the stacked plot.</p>
+                            <div style="float: left; width: 40%; margin-left: 20px">
+                                 <img src="../data/plots/nlp/race_average_ratio_of_bullying.png"  style="width: 70%">
+                            </div>
+                            <div style="width: 55%; float: left; margin-left: 0px">
+                                <iframe height="400px" name="bullied_by_race"
+                                    src="../data/plots/nlp/bullied_by_race.html"
+                                    width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>3. The two violin plots provide a comparison for the female vs male groups and public schools vs private schools respectively. From the plots, female teenagers group has a higher ratio of being bullied than male group. And public school teenagers group has a higher ratio of being bullied than private school teenagers group.</p>
+                            <div style="float: left; width: 45%; margin-left: 20px">
+                                 <iframe height="400px" name="bullied_by_gender"
+                                    src="../data/plots/nlp/bullied_by_gender.html"
+                                    width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="width: 50%; float: left; margin-left: 20px">
+                                <iframe height="400px" name="bullied_by_control_of_the_school"
+                                        src="../data/plots/nlp/bullied_by_control_of_the_school.html"
+                                        width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <ul class="nav nav-tabs"></ul>
+
+                            <br>
+                            <span class="cvt-tab-subtitle">Sentiment of Teenagers about Family</span>
+                            <div style="float: left; width: 45%; margin-left: 20px">
+                                 <iframe height="400px" name="Sentiment Number about Family in Month"
+                                    src="../data/plots/nlp/family_bar.html"
+                                    width="100%" style="border: none;">
+                            </iframe>
+                            </div>
+                            <div style="width: 50%; float: left; margin-left: 20px">
+                                <iframe height="400px" name="Number of Submissions in Different Sentiments about Family"
+                                    src="../data/plots/nlp/family_line.html"
+                                        width="100%" style="border: none;"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>Apart from the relationship between teenagers, family is also an important part in teenagers' life. The family is often considered as a place where comfort can be given and support or help can be gotten from. Regarding family topics of teenagers, we divided their emotion into four kinds of sentiments: fear, joy, sadness and surprise. It is a little surprising that surprise is always count most part, especially in June 2021. It is good to know that most times, joy takes up a larger part than sadness except three months: May 2021, October 2021 and April 2022. These three months seems to have correlation to the time of school which meet to figure out in the future. Also, fear accounts for the least but not none. The number of fear and sadness sentiments means some teenagers do not get along well with their families and have great conflicts that may need to be cared of.</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- Team Member Details End -->
+
+
+<!-- Template Scripts -->
+<script src="../website-source/jquery-3.5.1.min.js"></script>
+<script src="../website-source/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Jieqian Liu, jl2750@georgetown.edu" name="author">
+
+    <!-- Title -->
+    <title>fall 2022 reddit big data project nlp - project group 14</title>
+
+    <style>
+
+        /* Main Menu CSS */
+        .main-menu-area {
+            background: #f2f8ec;
+        }
+
+        .main-navigation ul li {
+            display: inline-block;
+            position: relative;
+
+        }
+
+        .main-navigation ul li a {
+            padding: 20px 20px;
+            display: block;
+            text-transform: capitalize;
+            color: #113417;
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .main-navigation ul li a:before {
+            position: absolute;
+            content: '';
+            height: 36px;
+            width: 100%;
+            background-color: #81b60c;
+            left: 0;
+            border-radius: 50px;
+            z-index: -1;
+            top: 50%;
+            margin-top: -17px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .main-navigation ul ul li a:before {
+            display: none;
+        }
+
+        .main-navigation ul ul li a,
+        .main-navigation ul li a:hover,
+        .main-navigation ul li.current-menu-item > a,
+        .main-navigation ul li.current-menu-ancestor > a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .main-navigation ul ul li a:hover,
+        .main-navigation ul ul li.current-menu-item > a,
+        .main-navigation ul ul li.current-menu-ancestor > a {
+            background-color: #123416;
+        }
+
+        .main-navigation ul li a:hover:before,
+        .main-navigation ul li.current-menu-item > a:before,
+        .main-navigation ul li.current-menu-ancestor > a:before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Menu CSS End*/
+
+        /* Submenu / Dropdown Menu CSS */
+        .main-navigation ul li ul {
+            position: absolute;
+            width: 250px;
+            left: 0;
+            top: 58px;
+            z-index: 2;
+            -webkit-transition: .3s;
+            transition: .3s;
+            visibility: hidden;
+            opacity: 0;
+            background-color: #81b60c;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .main-navigation ul li:hover > ul {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-navigation ul li ul li a {
+            padding: 14px 20px;
+            line-height: 26px;
+        }
+
+        .main-navigation ul li ul li {
+            display: block;
+            text-align: left;
+        }
+
+        .main-navigation ul li ul ul {
+            left: 250px;
+            top: 0;
+        }
+
+        .main-navigation ul li ul li {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .main-navigation ul li ul li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Submenu / Dropdown Menu CSS End */
+
+        /* Tab Layout Two */
+        .cvt-tabs-wrapper.cvt-tab-layout-two {
+            background-color: #f4f5ef;
+            padding: 10px;
+        }
+
+        .cvt-tab-layout-two .nav li a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ebebe7;
+            margin-right: 10px;
+            color: #123417;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 15px 23px;
+            margin-bottom: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .cvt-tab-layout-two .nav li a.active,
+        .cvt-tab-layout-two .nav li:hover a {
+            background-color: #123417;
+            color: #ffffff;
+        }
+
+        .cvt-tab-layout-two .tab-content {
+            padding: 25px 30px 45px 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-content-wrapper strong {
+            margin-top: 15px;
+        }
+
+        /* Tab Layout Two End */
+
+        /* Team details */
+        .team-member-details-wrapper .cvt-tab-layout-two .tab-content {
+            padding: 0;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a {
+            padding: 5px 40px;
+            font-size: 25px;
+            background-color: #ffffff;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a.active,
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li:hover a {
+            background-color: #81b60c;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            margin-bottom: 10px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle {
+            color: #81b60c;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle a {
+            color: #81b60c;
+        }
+        /* Team details End */
+
+    </style>
+
+    <!-- Template Stylesheet -->
+    <link href="../website-source/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Header Area -->
+<div class="main-menu-area">
+    <nav class="main-navigation">
+        <ul class="menu" id="main-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="eda.html">Exploratory Data Analysis</a></li>
+            <li><a href="nlp.html">Natural Language Processing</a></li>
+            <li><a href="ml.html">Machine Learning</a></li>
+            <li class="current-menu-ancestor"><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </nav>
+</div>
+<!-- Header Area End-->
+
+<!-- Team Member Details -->
+<section class="team-member-details-wrapper">
+    <div class="container" style="max-width: none">
+        <div class="cvt-tabs-wrapper cvt-tab-layout-two">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="active" data-toggle="tab" href="#tab-number-1">
+                        <span class="cvt-tab-menu-text">Conclusion</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#tab-number-2">
+                        <span class="cvt-tab-menu-text">Future Work</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tab-number-1" class="tab-pane active show">
+                    <div class="cvt-tab-content-wrapper">
+                        <span class="cvt-tab-subtitle"># What have we done</span>
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">Conclusion</h3>
+                            <p>
+                                During adolescence, teens develop emotionally, cognitively, and physically. The life of a teenager seems to change daily. One minute a teen seems interested in a new sport, topic in school, or type of music, relationships, etc. In this project, we have explored the life of teens. Teens want more independence and more emotional distance between them and their family. Therefore, they always have complicated emotions like trust, anticipation, fear, joy, sadness towards family members. According to our emotional analysis, teen’s positive emotions is still more than negative emotions.
+                            </p>
+                            <div style="width: 90%; float: left">
+                            <iframe height="420px" name="LGBTQ"
+                                    src="../data/plots/eda/emotion_family.html"
+                                    width="80%" style="border: none; margin-left: 20%"></iframe>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>
+                                A teen’s focus often shifts to social interactions and friendships. This includes same-gender groups of friends and cross-gender groups of friends. That’s why some of them are enthusiastic about sharing the experience of first kiss and some of them are enthusiastic about sharing their same gender loving. The topic of gay group is very popular on reddit. In our research, we found that the average first kiss age is 13.5 while most teens got their first kiss at 15. Sadly, youth not only goes with love and happiness, so we also do research about teenagers’ bullying situation. The bullying rate is significantly higher in the lower grades than in the higher grades and girls are more likely to have the experience of being bullied than boys. Bully is a serious problem and deserves a deep research, so we focus a lot on that and changed one of our initial proposals to that.
+                            </p>
+                            <p>
+                                Besides of relationships, hobbies and education for teenagers can also sometimes be life-defining moments. To understand the schooling of American youth, we used an external dataset “High schools’ graduation rate” and found that the sample number from school year 2020-2021 experience a great reduce which may be due to the influence of Covid-19. California and Texas have the highest accumulated number of students who graduated, indicating these two states have richer educational resources. Teens’ hobbies can be various. We built Association Rule Mining model via Apriori Algorithm to find the teens’ favorite things. Then we chose three popular hobbies: music, art and sport to build a classification model. The accuracy of this classification is quite satisfying, so it is useful for Reddit to manage pricing and slot of relevant ads.
+                                It is a pity that we cannot figure out the initial question 7 regarding games we proposed. It is hard to distinguish the name of games they mentioned as teenagers love to use abbreviation or typical characters instead of the full name of a game.
+                            </p>
+                            <p>
+                                To help Reddit have a better advertisement management system, we conducted text analysis on the number of comments overtime, selected top 20 common words in teenager community and plotted the distribution of comments length. Teen’s most active time is from 1am to 4am, which means the price of ads during this time can be higher. From the list of common words, we found that some pet phrases are very popular among teens, which indicates that words in the ads can use these words to attract teens’ attention. From the length distribution of comments, we can know that teens are used to communicate with the shortest words, so the ads shouldn’t be too long, or teens have no patient to read. The number of comments is the most important factor in judging an author's performance, so the average number of comments an author submits can be used as an indicator for advertisers to measure whether an author is worthy of cooperation.
+                            </p>
+                            <div style="width: 45%; float: left; margin-left: 5%">
+                                <img src="../data/plots/nlp/Comment_activity_over_time.png"  style="width: 100%">
+                            </div>
+                            <div style="float: left; width: 45%">
+                                <img src="../data/plots/nlp/common_words.png"  style="width: 100%">
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-number-2" class="tab-pane">
+                    <div class="cvt-tab-content-wrapper">
+                        <span class="cvt-tab-subtitle"># What will we do next</span>
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">Future Plans</h3>
+                            <p>Besides what we have done so far, there still remains some things we are planning to do in the future.</p>
+                            <ul>
+                                <li><p>
+                                    For the controversial submissions we discovered in the exploratory data analysis part, it is hard to distinguish any specific topic according to these words, although we built a visualization to see the most common words inside. Maybe we need to find more complicated nlp models to figure out the topics that teenagers argue a lot on Reddit.
+                                </p></li>
+                                <li><p>
+                                    Also, for the classification model we build before, we can delve into the simple three categories: music, sports and art for further and specific research. For example, in all kinds of sports like basketball, football, tennis ball, etc. we want to know which is more popular among teenagers.
+                                </p></li>
+                                <li><p>
+                                    For family and school, it is nice to know that most teenagers still are positive towards them. However, since fear towards family and bullying in school still accounts a large percentage, we need to figure out the situations and how we can help them with.
+                                </p></li>
+                                <li><p>
+                                    For words associated with favorite, they also require more in-depth research. We know teenagers like to talk about their favorite colors, music, games, movies, songs, but we don't know the most popular color or music or things that teenagers like. Maybe we can extend our network in associate rules mining(ARM) model that not just limited in two associated words but more.
+                                </p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Us Section End -->
+
+
+<!-- Template Scripts -->
+<script src="../website-source/jquery-3.5.1.min.js"></script>
+<script src="../website-source/bootstrap.min.js"></script>
+
+</body>
+</html>

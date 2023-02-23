@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META DATA -->
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Jieqian Liu, jl2750@georgetown.edu" name="author">
+
+    <!-- Title -->
+    <title>fall 2022 reddit big data project nlp - project group 14</title>
+
+    <style>
+
+        /* Main Menu CSS */
+        .main-menu-area {
+            background: #f2f8ec;
+        }
+
+        .main-navigation ul li {
+            display: inline-block;
+            position: relative;
+
+        }
+
+        .main-navigation ul li a {
+            padding: 20px 20px;
+            display: block;
+            text-transform: capitalize;
+            color: #113417;
+            font-size: 18px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1;
+        }
+
+        .main-navigation ul li a:before {
+            position: absolute;
+            content: '';
+            height: 36px;
+            width: 100%;
+            background-color: #81b60c;
+            left: 0;
+            border-radius: 50px;
+            z-index: -1;
+            top: 50%;
+            margin-top: -17px;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+        }
+
+        .main-navigation ul ul li a:before {
+            display: none;
+        }
+
+        .main-navigation ul ul li a,
+        .main-navigation ul li a:hover,
+        .main-navigation ul li.current-menu-item > a,
+        .main-navigation ul li.current-menu-ancestor > a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .main-navigation ul ul li a:hover,
+        .main-navigation ul ul li.current-menu-item > a,
+        .main-navigation ul ul li.current-menu-ancestor > a {
+            background-color: #123416;
+        }
+
+        .main-navigation ul li a:hover:before,
+        .main-navigation ul li.current-menu-item > a:before,
+        .main-navigation ul li.current-menu-ancestor > a:before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Main Menu CSS End*/
+
+        /* Submenu / Dropdown Menu CSS */
+        .main-navigation ul li ul {
+            position: absolute;
+            width: 250px;
+            left: 0;
+            top: 58px;
+            z-index: 2;
+            -webkit-transition: .3s;
+            transition: .3s;
+            visibility: hidden;
+            opacity: 0;
+            background-color: #81b60c;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .main-navigation ul li:hover > ul {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .main-navigation ul li ul li a {
+            padding: 14px 20px;
+            line-height: 26px;
+        }
+
+        .main-navigation ul li ul li {
+            display: block;
+            text-align: left;
+        }
+
+        .main-navigation ul li ul ul {
+            left: 250px;
+            top: 0;
+        }
+
+        .main-navigation ul li ul li {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .main-navigation ul li ul li:last-child {
+            border-bottom: 0;
+        }
+
+        /* Submenu / Dropdown Menu CSS End */
+
+        /* Tab Layout Two */
+        .cvt-tabs-wrapper.cvt-tab-layout-two {
+            background-color: #f4f5ef;
+            padding: 10px;
+        }
+
+        .cvt-tab-layout-two .nav li a {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ebebe7;
+            margin-right: 10px;
+            color: #123417;
+            font-size: 28px;
+            font-weight: 700;
+            padding: 15px 23px;
+            margin-bottom: 10px;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .cvt-tab-layout-two .nav li a.active,
+        .cvt-tab-layout-two .nav li:hover a {
+            background-color: #123417;
+            color: #ffffff;
+        }
+
+        .cvt-tab-layout-two .tab-content {
+            padding: 25px 30px 45px 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            font-size: 36px;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-content-wrapper strong {
+            margin-top: 15px;
+        }
+
+        /* Tab Layout Two End */
+
+        /* Team details */
+        .team-member-details-wrapper .cvt-tab-layout-two .tab-content {
+            padding: 0;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a {
+            padding: 5px 40px;
+            font-size: 25px;
+            background-color: #ffffff;
+        }
+
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li a.active,
+        .team-member-details-wrapper .cvt-tab-layout-two .nav li:hover a {
+            background-color: #81b60c;
+        }
+
+        .cvt-tab-layout-two .cvt-tab-title {
+            margin-bottom: 10px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle {
+            color: #81b60c;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 17px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .team-member-details-wrapper .cvt-tab-subtitle a {
+            color: #81b60c;
+        }
+
+        .pict {
+            margin-top: 5px;
+            margin-left: 350px;
+            font-size: 12px;
+            color: dimgray;
+        }
+
+        .mdiv {
+            width: 900px;
+            height: 300px;
+            background-color: #ffffff;
+            overflow: scroll;
+            margin-left: 80px;
+            scrollbar-face-color: #70807d;
+            scrollbar-arrow-color: #ffffff;
+            scrollbar-highlight-color: #ffffff;
+            scrollbar-3dlight-color: #70807d;
+            scrollbar-shadow-color: #ffffff;
+            scrollbar-darkshadow-color: #70807d;
+            scrollbar-track-color: #ffffff;
+        }
+
+        /* Team details End */
+
+    </style>
+
+    <!-- Template Stylesheet -->
+    <link href="../website-source/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Header Area -->
+<div class="main-menu-area">
+    <nav class="main-navigation">
+        <ul class="menu" id="main-menu">
+            <li class="current-menu-ancestor"><a href="index.html">Home</a></li>
+            <li><a href="eda.html">Exploratory Data Analysis</a></li>
+            <li><a href="nlp.html">Natural Language Processing</a></li>
+            <li><a href="ml.html">Machine Learning</a></li>
+            <li><a href="conclusion.html">Conclusion</a></li>
+        </ul>
+    </nav>
+</div>
+<!-- Header Area End-->
+
+<!-- Team Member Details -->
+<section class="team-member-details-wrapper">
+    <div class="container" style="max-width: none">
+        <div class="cvt-tabs-wrapper cvt-tab-layout-two">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a class="active" data-toggle="tab" href="#tab-number-1">
+                        <span class="cvt-tab-menu-text">Background</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a data-toggle="tab" href="#tab-number-2">
+                        <span class="cvt-tab-menu-text">Questions</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tab-number-1" class="tab-pane active show">
+                    <div class="cvt-tab-content-wrapper">
+                        <span class="cvt-tab-subtitle"># What is My Topic</span>
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">Reddit Discussion on Teenagers</h3>
+                            <p>This project conducts a series of studies on teenage groups based on users' activities and shared content on Reddit. According to a report by app ape, in 2021, one fifth users of the Reddit app in the U.S. was in the age group of 10-19 years old. Indeed, even elementary and middle school students know using Instagram or other social media platforms to make friends and share their thoughts. And Reddit, as a huge collection of online communities, is considered by 86% of users to be a trusted platform for content. Therefore, we decided to analyze the behavior and psychology of teens based on Reddit Post content can help us understand this group and bring useful business information to individuals whose target customer group is teens. Moreover, the research results can be adopted as references by education policy makers.</p>
+                            <div style="float: left; width: 45%; margin-left: 20px">
+                                 <img src="../data/plots/introduction1.PNG"  style="width: 100%">
+                            </div>
+                            <div style="width: 45%; float: left; margin-left: 20px">
+                                <img src="../data/plots/introduction2.PNG"  style="width: 100%">
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+
+                            <p>
+                                In the initial stage, we created datasets that collected all the posts and comments from subreddits related to teenager communities, and generated wordcloud. From the wordcloud, we can extract several potentially important topics as follows.
+                            </p>
+                            <div style="float: left; width: 45%; margin-left: 20px">
+                                <img src="../data/plots/eda/important_topic.png"  style="width: 92%">
+                            </div>
+                            <div style="width: 45%; float: left; margin-left: 20px; padding: 100px 30px 0 20px;">
+                                <ul>
+                                    <li>social relationship: friend, people, person, someone, girl, guy;</li>
+                                    <li>emotion: feel, want, think;</li>
+                                    <li>school: bully in school;</li>
+                                    <li>family: mom, dad;</li>
+                                </ul>
+                            </div>
+                            <div style="clear: both; height: 0; overflow:hidden"></div>
+                            <br>
+                            <p>After the above basic data exploration and analysis, it was found that the teenagers showed more enthusiasm to discuss topics related to their school life, such as sexual orientation, scores, etc. In order to further explore the topics related to teenage life, we collected external data from the U.S. Department of Education on school graduation rates and bullying rates over the past few years and conducted an in-depth study on Teenager's bully situation and graduation situation together with Reddit content.</p>
+                            <p>In addition to understanding what teens are interested in, we also want to know about the activities and trajectories of teens on the platform. This can not only provide ideas for optimizing the user experience, but also help the platform run and manage better. To be more specific, our project also takes into account that reddit, as a commercial product, needs to have a reliable profit model, and advertising revenue is very important for this type of social media platform that relies on user-generated content. Therefore, it is worth studying how to sell different sections on the teenager related subreddits of the website to merchants who need to advertise at tiered prices.</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-number-2" class="tab-pane">
+                    <div class="cvt-tab-content-wrapper">
+                        <span class="cvt-tab-subtitle"># What is Guiding Question</span>
+
+                        <div class="tab-description">
+                            <h3 class="cvt-tab-title">10 Analysis Topics For Reddit Teenagers-related Data</h3>
+
+                            <ol>
+                                <li>
+                                    <p>
+                                        Business Goal: Determine the most common thoughts from teenagers when they
+                                        mention
+                                        family, like the conflicts with their parents or siblings.
+                                    </p>
+                                    <p>
+                                        Technical proposal: Using NLP to identify the sentiment of words and sentences
+                                        in posts
+                                        and comments by teenagers. Since teenagers often have great conflicts with their
+                                        families, find the most negative and positive 10 words and sentences are used.
+                                        Present
+                                        findings with visualizations for sentiment analysis to see the biggest conflict
+                                        between
+                                        parents and teenagers.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+
+                                <li>
+                                    <p>
+                                        Business goal: Distinguish the activities/hobbies (music/sport/art) that teens may be interested in, which may be helpful when targeting relevant ads on subreddit forums.
+                                    </p>
+                                    <p>
+                                        Technical proposal: Use "sports", "art", "music" as labels to find relevant sumbissions, process text using Stopwords and tokenization, train classification model using algorithm such as regression or naive bayes.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Figure out the top 10 reddit authors that received the most comments/upvotes on their posts, and analysis the common features of these 10 users.
+                                    </p>
+                                    <p>
+                                        Technical proposal: select the variable which can be used to hint weather the author is a good submitter, such as selftext, created_time and so on. Then use Spark MLlib to build Pipelines and do logistic regression analysis, find the most important factors which relates to a good author. Through this process, we can create new variables like avg(score) to evaluate the authors general performance. We can also do some normalization to improve the reliability of the results.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Find the top 10 posts about the issues related LGBTQ+ that has
+                                        struck a
+                                        chord with most commentators.
+                                    </p>
+                                    <p>
+                                        Technical proposal: We found that many teenagers talking about the issues
+                                        related LGBTQ+
+                                        had struck a chord with commentators. So we planed to use the keywords "lesbian,
+                                        gay,
+                                        bisexual, transgender, intersex, queer/questioning, asexual" to find the posts
+                                        related
+                                        to LGBTQ+. By calculating the number of comments these posts got and ordering
+                                        them in a
+                                        descent order, we can sort out the most commented posts about the related
+                                        LGBTQ+.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Determine the attitudes of teenagers in regard to studying and
+                                        higher
+                                        education.
+                                    </p>
+                                    <p>
+                                        Technical proposal: Use "studying"/"education" keywords
+                                        (university/tuition/college/...) to filter the submissions/comments that match
+                                        these
+                                        keywords. Conduct NLP sentiment analysis to investigate the teenagers' attitudes
+                                        toward
+                                        this topic. Since some possible keywords are frequently used vocabularies among
+                                        teens,
+                                        it may require strict keywords selection or requires some keywords appears
+                                        together,
+                                        in order to accurately locate those rows that match the requirements.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Find the hottest topics when teenagers mention 'favorite'.</p>
+                                    <p>
+                                        Technical proposal:People sharing similar hobbies and taste are more likely to
+                                        become
+                                        friends. Teenagers are enthusiastic about talking their favorite things to find
+                                        peers having similar taste with them. The topics can be various, like type of
+                                        fries,
+                                        game, sports, etc. We will calculate the 'popular score' according to the word
+                                        count of
+                                        the comments and upvote number.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal:  Analyze the bullying of American youth in recent years.
+                                    </p>
+                                    <p>
+                                        Categorize the external data with different traits, such as age, gender, ethnicity, and other characteristics, to compare the bullying rates and observe the year-by-year trends.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Find out what factors affect the pricing of ad slots for subreddits.
+                                    </p>
+                                    <p>
+                                        One possible factor may be the subreddits' activity. Thus we can use the number of comments in each time period to measure, such as extract the hour part of the variable created_time and create time series plot find the time of day when teenagers are most active on the subreddit.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Figure out what kind of topics when teenagers would most like to
+                                        share or
+                                        be advised on from Reddit.
+                                    </p>
+                                    <p>
+                                        Technical proposal: Conduct topic modelling using unsupervised learning to
+                                        extract the
+                                        main topics(words) that occurs in the collection of submissions. Aggregate
+                                        similar
+                                        topics to summarize several majors topics of those posts. Check the distribution
+                                        of
+                                        number of posts under each major topic to find the most shared ones.
+                                    </p>
+                                    <ul class="nav nav-tabs"></ul>
+                                </li>
+
+                                <li>
+                                    <p>
+                                        Business goal: Find the distribution of age for teenagers when they got their
+                                        first
+                                        kiss.</p>
+                                    <p>
+                                        Technical proposal: Teenagers are enthusiastic talking about the age they got
+                                        their
+                                        first kiss. By using the key word 'first kiss', we got plenty of posts where
+                                        teenagers
+                                        share the age they got first kiss. Use NLP to identify the age number mentioned
+                                        in these
+                                        posts to find the distribution of age for teenagers when they got their first
+                                        kiss.
+                                    </p>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Template Scripts -->
+<script src="../website-source/jquery-3.5.1.min.js"></script>
+<script src="../website-source/bootstrap.min.js"></script>
+
+</body>
+</html>
